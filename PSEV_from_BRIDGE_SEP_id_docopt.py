@@ -1,28 +1,40 @@
+"""
+Usage:
+    PSEV_from_BRIDGE_SEP_id_docopt.py [-d=NAME] [-p=NAME] [-s=NAME] [-l=NAME]
+
+Options:
+    -h --help   Show this screen
+    -d=NAME     Filepath of the directory where PSEV matrix lives
+    -p=NAME     Name of PSEV matrix file
+    -s=NAME     Name of SEP_map array
+    -l=NAME     List of SEP identifiers
+"""
+
 ## Import python packages
 
 import numpy as np
-import sys
 import os
-# import matplotlib
-# matplotlib.use('GTK3Agg')
+from docopt import docopt
 import matplotlib.pyplot as plt
-# plt.switch_backend('TkAgg')
 
+## Get the arguments
+
+arguments = docopt(__doc__)
 # SEP_variables from BRIDGE
 # PSEV_matrix from SPOKE
 
 # PSEV and SEP_map matrix version
-dir_ = sys.argv[1]
+dir_ = arguments['-d']
 os.chdir(dir_)
 
 # Load PSEV matrix
-PSEV_matrix = np.load(sys.argv[2])
+PSEV_matrix = np.load(arguments['-p'])
 
 # Load SEP_map array
-SEP_map = np.load(sys.argv[3])
+SEP_map = np.load(arguments['-s'])
 
 # SEP_variables
-SEP_variables = sys.argv[4]
+SEP_variables = arguments['-l']
 SEP_variables = SEP_variables.strip('[]').split(',')
 
 def PSEV_to_BRIDGE():
